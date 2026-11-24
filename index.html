@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simulado ENEM</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;min-height:100vh;color:#e6ecff;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:radial-gradient(900px 500px at 90% -10%,rgba(251,191,36,.2),transparent),radial-gradient(800px 600px at -10% 10%,rgba(59,130,246,.28),transparent),linear-gradient(160deg,#050b1f,#0b1d4a 60%,#050b1f) fixed}
+.glass{background:rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:20px;box-shadow:0 0 30px rgba(59,130,246,.12)}
+.gold{background:linear-gradient(90deg,#fde68a,#fbbf24,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mut{color:#9fb0d8}
+.btn{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#0b1230;font-weight:700;border-radius:14px;padding:.7rem 1.2rem;transition:.2s;border:0;cursor:pointer}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(251,191,36,.5)}
+.btn2{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:inherit;border-radius:14px;padding:.6rem 1rem;transition:.2s;cursor:pointer}
+.btn2:hover{background:rgba(59,130,246,.25)}
+.inp{width:100%;padding:.8rem 1rem;border-radius:14px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);color:#fff;outline:0;font:inherit}
+.inp:focus{border-color:#fbbf24;box-shadow:0 0 14px rgba(251,191,36,.3)}
+.opt{display:flex;gap:.75rem;text-align:left;width:100%;padding:.8rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:inherit;transition:.2s;cursor:pointer;font:inherit}
+.opt:hover{border-color:#3b82f6;transform:translateX(3px)}
+.opt.sel{border-color:#fbbf24;background:rgba(251,191,36,.14);box-shadow:0 0 18px rgba(251,191,36,.25)}
+.opt b{color:#fbbf24}
+.nb{width:2.4rem;height:2.4rem;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:inherit;cursor:pointer;transition:.2s}
+.nb.done{background:rgba(59,130,246,.4);border-color:#3b82f6}.nb.cur{outline:2px solid #fbbf24}
+.tab{padding:.55rem .9rem;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:inherit;cursor:pointer;font-size:.85rem;transition:.2s}
+.tab.on{background:linear-gradient(135deg,#1d4ed8,#0b1d4a);border-color:#fbbf24}
+.gc{border-radius:10px;padding:.35rem;text-align:center;font-size:.75rem;border:1px solid}
+.ok{background:rgba(34,197,94,.18);border-color:#22c55e}.no{background:rgba(239,68,68,.18);border-color:#ef4444}.bl{background:rgba(148,163,184,.15);border-color:#64748b}
+.fade{animation:f .45s ease}@keyframes f{from{opacity:0;transform:translateY(12px)}}
+td,th{padding:.5rem;border-bottom:1px solid rgba(255,255,255,.12);text-align:left}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:radial-gradient(1200px 700px at 80% -10%,rgba(251,191,36,.16),transparent 60%),radial-gradient(900px 700px at 0% 0%,rgba(37,99,235,.35),transparent 60%),linear-gradient(180deg,#040816,#071433 55%,#030612) fixed}
+.bg-fx{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(96,165,250,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.07) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);overflow:hidden}
+.bg-fx::before,.bg-fx::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(90px);animation:fl 14s ease-in-out infinite alternate}
+.bg-fx::before{background:#2563eb;top:-120px;left:-120px;opacity:.4}.bg-fx::after{background:#f59e0b;bottom:-160px;right:-120px;opacity:.25;animation-delay:-6s}
+@keyframes fl{to{transform:translate(60px,50px) scale(1.15)}}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:24px;box-shadow:0 12px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.12);position:relative}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(251,191,36,.6),transparent 30%,transparent 70%,rgba(59,130,246,.55));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+h1,h2,header b{font-family:'Orbitron','Space Grotesk',sans-serif;letter-spacing:.07em}
+#cd{font-family:'Orbitron',sans-serif;letter-spacing:.1em}
+.gold{background-image:linear-gradient(90deg,#fff3c4,#fbbf24 45%,#f59e0b)}
+.text-5xl{filter:drop-shadow(0 0 18px rgba(251,191,36,.6))}
+header.noprint{border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:0 0 22px 22px;margin-bottom:.5rem}
+.btn{background:linear-gradient(135deg,#fde68a,#fbbf24 50%,#f59e0b);border-radius:16px;letter-spacing:.03em;box-shadow:0 6px 22px rgba(245,158,11,.35),inset 0 1px 0 rgba(255,255,255,.55)}
+.btn:hover{box-shadow:0 8px 30px rgba(251,191,36,.6),inset 0 1px 0 rgba(255,255,255,.6)}
+.btn2:hover{border-color:#60a5fa;box-shadow:0 0 18px rgba(96,165,250,.35)}
+.inp{background:rgba(2,6,23,.55)}.inp:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,.25),0 0 18px rgba(251,191,36,.2)}
+.opt{border-radius:16px;background:rgba(255,255,255,.035)}.opt:hover{border-color:#60a5fa;background:rgba(59,130,246,.1)}
+.opt.sel{background:linear-gradient(90deg,rgba(251,191,36,.2),rgba(251,191,36,.05));box-shadow:0 0 22px rgba(251,191,36,.25),inset 3px 0 0 #fbbf24}
+.opt b{font-family:'Orbitron',sans-serif;font-size:.85rem;padding-top:.15rem}
+.nb{border-radius:12px;font-family:'Orbitron',sans-serif;font-size:.8rem}.nb:hover{border-color:#60a5fa;transform:translateY(-2px)}
+.nb.done{background:linear-gradient(135deg,rgba(37,99,235,.7),rgba(59,130,246,.3))}
+.nb.cur{outline:0;border-color:#fbbf24;box-shadow:0 0 16px rgba(251,191,36,.65)}
+.tab{border-radius:14px}.tab.on{background:linear-gradient(135deg,#1d4ed8,#0b1d4a);border-color:#fbbf24;box-shadow:0 0 18px rgba(251,191,36,.25)}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:rgba(96,165,250,.35);border-radius:8px}::selection{background:rgba(251,191,36,.4)}
+@media print{.bg-fx{display:none!important}.glass::before{display:none}}
+@media print{body{background:#fff!important;color:#000}.glass{background:#fff;border:1px solid #999;box-shadow:none;backdrop-filter:none}.noprint{display:none!important}.mut{color:#333}.gold{color:#92400e;background:none}}
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+<div id="app" class="fade"></div>
+<script>
+const q=(t,o,c)=>({t,o:o.split(';'),c});
+const H=[q("Qual era o lema da Revolução Francesa (1789)?","Ordem e progresso;Liberdade, igualdade e fraternidade;Deus, pátria e família;Paz, pão e terra;Trabalho e justiça",1),
+q("A República foi proclamada no Brasil em:","1822;1888;1889;1930;1945",2),
+q("A lei que aboliu a escravidão no Brasil, em 1888, foi a:","Lei do Ventre Livre;Lei Áurea;Lei Eusébio de Queirós;Lei dos Sexagenários;Lei de Terras",1),
+q("Quem formulou a frase “Penso, logo existo”?","Platão;Kant;Nietzsche;Aristóteles;Descartes",4),
+q("O conceito de “fato social” foi desenvolvido por:","Karl Marx;Max Weber;Émile Durkheim;Auguste Comte;Zygmunt Bauman",2),
+q("O maior bioma brasileiro em extensão é:","Cerrado;Mata Atlântica;Caatinga;Pampa;Amazônia",4),
+q("A Linha do Equador divide a Terra nos hemisférios:","Leste e Oeste;Norte e Sul;Ocidental e Oriental;Tropical e Polar;Continental e Oceânico",1),
+q("A Guerra Fria foi a disputa de influência entre:","Alemanha e França;Japão e China;EUA e União Soviética;Inglaterra e Espanha;Brasil e Argentina",2),
+q("A CLT, criada em 1943 no governo Vargas, regulamentou:","O sistema eleitoral;As relações de trabalho;A reforma agrária;O ensino superior;A moeda nacional",1),
+q("O êxodo rural é o deslocamento de pessoas:","Das cidades para o exterior;Do litoral para o sertão;Do campo para as cidades;Entre países vizinhos;Das cidades para o campo",2),
+q("A alegoria da caverna é um texto do filósofo:","Maquiavel;Hobbes;Locke;Platão;Marx",3),
+q("A divisão da sociedade em camadas hierarquizadas chama-se:","Estratificação social;Globalização;Aculturação;Cidadania;Urbanização",0),
+q("A base econômica do feudalismo europeu era:","A indústria têxtil;O comércio marítimo;A agricultura de subsistência;A mineração;O capital bancário",2),
+q("O agravamento do efeito estufa liga-se principalmente a:","Emissão excessiva de gases como o CO₂;Aumento da camada de ozônio;Redução do gás carbônico;Expansão das geleiras;Chuvas ácidas",0),
+q("O principal produto da economia colonial brasileira no século XVI era:","Café;Borracha;Ouro;Açúcar;Algodão",3),
+q("A separação entre Executivo, Legislativo e Judiciário foi defendida por:","Rousseau;Montesquieu;Voltaire;Hobbes;Maquiavel",1),
+q("A Constituição brasileira de 1988 ficou conhecida como:","Constituição Imperial;Constituição Polaca;Constituição Cidadã;Constituição Outorgada;Constituição Militar",2),
+q("A região brasileira mais populosa é a:","Norte;Nordeste;Sul;Centro-Oeste;Sudeste",4),
+q("A Declaração Universal dos Direitos Humanos foi proclamada pela ONU em:","1919;1945;1948;1964;1988",2),
+q("A globalização caracteriza-se pela:","Isolamento econômico dos países;Integração econômica, cultural e tecnológica entre países;Redução do comércio mundial;Fim das telecomunicações;Volta do feudalismo",1)];
+const N=[q("A fotossíntese ocorre principalmente nos:","Mitocôndrias;Ribossomos;Cloroplastos;Lisossomos;Núcleos",2),
+q("No DNA, a adenina (A) pareia com a:","Citosina;Guanina;Uracila;Timina;Adenina",3),
+q("Um carro percorre 100 km em 2 h. Sua velocidade média é:","25 km/h;50 km/h;100 km/h;200 km/h;60 km/h",1),
+q("Uma solução com pH 7 é considerada:","Ácida;Básica;Neutra;Corrosiva;Alcalina forte",2),
+q("Nas cadeias alimentares, os produtores são:","Fungos;Herbívoros;Carnívoros;Bactérias decompositoras;Plantas e algas",4),
+q("No SI, a unidade de força é o:","Joule;Newton;Watt;Pascal;Ampère",1),
+q("O símbolo químico do sódio é:","S;So;Na;Sd;N",2),
+q("As vacinas protegem porque:","Matam todos os vírus do corpo;Estimulam o sistema imunológico a produzir anticorpos;Substituem os glóbulos brancos;Eliminam bactérias do intestino;Aumentam a temperatura",1),
+q("A tendência de um corpo manter seu estado de movimento é a:","Gravidade;Inércia;Pressão;Densidade;Atrito",1),
+q("O principal gás liberado na fotossíntese é o:","Gás carbônico;Nitrogênio;Metano;Hélio;Oxigênio",4),
+q("As hemácias têm a função de transportar:","Anticorpos;Hormônios;Oxigênio;Vitaminas;Gordura",2),
+q("A energia associada ao movimento de um corpo é a:","Potencial;Térmica;Nuclear;Cinética;Química",3),
+q("A passagem do estado líquido para o gasoso chama-se:","Fusão;Solidificação;Condensação;Sublimação;Vaporização",4),
+q("A teoria da seleção natural foi proposta por:","Mendel;Pasteur;Darwin;Lamarck;Newton",2),
+q("A velocidade da luz no vácuo é de cerca de:","300 km/s;3.000 km/s;300.000 km/s;30.000 km/h;3.000.000 km/s",2),
+q("Na tabela periódica, os elementos seguem ordem crescente de:","Massa molecular;Número atômico;Densidade;Ponto de fusão;Eletronegatividade",1),
+q("A dengue é transmitida pelo mosquito:","Anopheles;Culex;Aedes aegypti;Flebótomo;Barbeiro",2),
+q("Um aparelho de 100 W ligado por 10 h consome:","0,1 kWh;1 kWh;10 kWh;100 kWh;1.000 kWh",1),
+q("Na ligação iônica ocorre:","Compartilhamento de elétrons;Fusão de núcleos;Transferência de elétrons;Troca de prótons;Quebra de nêutrons",2),
+q("A mitose origina:","Quatro células diferentes;Duas células-filhas idênticas;Gametas;Uma célula haploide;Células sem núcleo",1)];
+const M=[q("15% de 200 é:","15;20;25;30;45",3),
+q("A área de um retângulo de 8 m por 5 m é:","13 m²;26 m²;35 m²;40 m²;80 m²",3),
+q("A média aritmética de 4, 6, 8 e 10 é:","6;7;8;9;28",1),
+q("Se 3 canetas custam R$ 6,00, 7 canetas custam:","R$ 12,00;R$ 13,00;R$ 14,00;R$ 15,00;R$ 18,00",2),
+q("O perímetro de um quadrado de lado 7 cm é:","14 cm;21 cm;28 cm;49 cm;56 cm",2),
+q("Na equação 2x + 5 = 17, o valor de x é:","5;6;7;11;12",1),
+q("A mediana de 3, 7, 9, 12 e 15 é:","7;9;12;9,2;15",1),
+q("Em um mapa de escala 1:100.000, 3 cm representam:","300 m;3 km;30 km;300 km;3 m",1),
+q("A área de um círculo de raio 3 cm é:","6π cm²;3π cm²;9π cm²;12π cm²;18π cm²",2),
+q("Um produto de R$ 250,00 com 20% de desconto custa:","R$ 170,00;R$ 180,00;R$ 190,00;R$ 200,00;R$ 230,00",3),
+q("Ao lançar um dado comum, a probabilidade de sair par é:","1/6;1/3;1/2;2/3;5/6",2),
+q("A soma dos ângulos internos de um triângulo é:","90°;120°;180°;270°;360°",2),
+q("O volume de um cubo de aresta 4 cm é:","16 cm³;24 cm³;48 cm³;64 cm³;96 cm³",3),
+q("Um carro a 60 km/h durante 3 h percorre:","120 km;150 km;180 km;200 km;240 km",2),
+q("A moda do conjunto 2, 3, 3, 4, 5, 3, 6 é:","2;3;4;5;6",1),
+q("A fração 3/5 equivale a:","30%;35%;53%;60%;75%",3),
+q("Um triângulo retângulo de catetos 6 e 8 tem hipotenusa:","9;10;12;14;100",1),
+q("Juros simples de 10% a.a. sobre R$ 1.000,00 em 2 anos rendem:","R$ 100,00;R$ 150,00;R$ 200,00;R$ 210,00;R$ 220,00",2),
+q("Há 12 meninas e 18 meninos. A razão entre meninas e o total é:","2/3;2/5;3/5;1/3;3/2",1),
+q("O 10º termo da PA 2, 5, 8, … é:","26;27;28;29;32",3)];
+const SEC=[{k:'h',n:'Ciências Humanas',s:'Humanas',q:H},{k:'n',n:'Ciências da Natureza',s:'Natureza',q:N},{k:'m',n:'Matemática',s:'Matemática',q:M}];
+const L='ABCDE',$=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let users={},ses=null,ready=false,ui={mode:'in',sec:'h',q:0,conf:false},tm,last='';
+const U=()=>users[ses];let DB=null,uid=null,st=null;const save=()=>sync();
+function sync(){if(!DB)return;clearTimeout(st);st=setTimeout(()=>DB.doc('data/users/'+uid+'/enem').set({users,ses,ts:Date.now()}).catch(()=>{}),300)}
+async function initDb(){try{const c=window.claude;const[db,us]=c?await Promise.all([c.use('db'),c.use('user')]):[null,null];if(db&&us){uid=await us.id();if(uid){const s=await db.doc('data/users/'+uid+'/enem').get();DB=db;if(s.exists){const d=s.data()||{};users=d.users||{};ses=users[d.ses]?d.ses:null}}}}catch(e){}ready=true;render(true)}
+const fmt=n=>n.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const cpf=()=>{let d=[...Array(9)].map(()=>Math.random()*10|0);for(let j=0;j<2;j++){let s=d.reduce((a,x,i)=>a+x*(d.length+1-i),0)*10%11%10;d.push(s)}return d.join('').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4')};
+const blank=()=>({h:Array(20).fill(null),n:Array(20).fill(null),m:Array(20).fill(null)});
+const lc=t=>t.split('\n').reduce((a,l)=>a+Math.max(1,Math.ceil(l.length/88)),0);
+const wc=t=>(t.match(/\S+/g)||[]).length;
+const THEME="Desafios para o combate à desinformação e às fake news na sociedade brasileira";
+const SUP="Com a expansão das redes sociais, notícias falsas circulam em segundos e podem influenciar eleições, a saúde pública e a confiança nas instituições. Segundo pesquisas, grande parte dos brasileiros já compartilhou conteúdo sem verificar a fonte. Ao mesmo tempo, a liberdade de expressão é um direito garantido pela Constituição de 1988. A partir desses elementos, redija um texto dissertativo-argumentativo apresentando tese, argumentos e uma proposta de intervenção que respeite os direitos humanos.";
+
+function gradeEssay(t){
+ const x=t.trim();if(!x)return[0,0,0,0,0];
+ const low=x.toLowerCase(),W=wc(x),S=Math.max(x.split(/[.!?]+/).filter(s=>s.trim().length>2).length,1);
+ const sents=x.split(/[.!?]+/).filter(s=>s.trim().length>2),commas=(x.match(/,/g)||[]).length,paras=x.split(/\n+/).filter(p=>p.trim()).length;
+ const has=a=>a.filter(w=>low.includes(w)).length;
+ let c1=Math.round(Math.min(1,commas/(S*1.2))*80)+(/[.!?]\s*$/.test(x)?40:0)+Math.round(sents.filter(s=>/^[A-ZÀ-Ú]/.test(s.trim())).length/S*50)+(/\s{2,}|\s,|,\S/.test(x.replace(/\n/g,' '))?0:30);
+ const con=['além disso','portanto','contudo','entretanto','porém','pois','assim','dessa forma','desse modo','logo','ademais','nesse sentido','em suma','visto que','uma vez que','por isso','diante disso','embora','tendo em vista','por outro lado','sobretudo','todavia','mas','porque','já que'];
+ let c2=Math.min(140,has(con)*20)+(paras>=2?30:0)+(paras>=3?30:0);
+ const th=['desinformação','fake news','notícias falsas','internet','redes sociais','digital','informação','mídia','verdade','população','sociedade','brasil','educação','tecnologia','democracia','checagem'];
+ const rep=['constituição','segundo','de acordo com','unesco','ibge','pesquisa','estudo','lei','marco civil','bauman','orwell','pós-verdade','filósofo','sociólogo','eleições','pandemia','vacina','liberdade de expressão','cidadania','iluminismo'];
+ let c3=Math.min(100,has(th)*20)+Math.min(100,has(rep)*34);
+ let c4=(has(['atualmente','na sociedade','nos dias de hoje','é fato','com o advento','contemporane','no brasil'])?50:0)+(has(['primeiramente','em primeiro lugar','além disso','ademais','outrossim','por outro lado','segundo','pois','porque'])?50:0)+(has(['portanto','em suma','diante do exposto','dessa forma','assim','logo','por fim','conclui'])?50:0)+Math.min(50,Math.round(W/80*50));
+ const ag=['governo','ministério','estado','escolas','mídia','empresas','plataformas','congresso','sociedade civil','ong','poder público','família','universidades'],ac=['criar','promover','implementar','investir','fiscalizar','regulamentar','incentivar','ampliar','desenvolver','realizar','educar','oferecer','combater','punir'];
+ let c5=(has(ag)?40:0)+(has(ac)?40:0)+(has(['por meio de','mediante','através de','campanhas','programas','palestras','aulas','por intermédio'])?40:0)+(has(['a fim de','com o objetivo','para que','com a finalidade','de modo a','visando','com o intuito'])?40:0)+(has(ag)>=2&&has(ac)>=2?40:0);
+ const k=Math.min(1,W/30);
+ return[c1,c2,c3,c4,c5].map(v=>Math.max(0,Math.min(200,Math.round(v*k/20)*20)));
+}
+function calc(u){const r={};SEC.forEach(s=>{let ok=0;s.q.forEach((x,i)=>{if(u.ans[s.k][i]===x.c)ok++});r[s.k]=ok*50;r[s.k+'ok']=ok});r.e=gradeEssay(u.essay);r.r=r.e.reduce((a,b)=>a+b,0);r.avg=(r.h+r.n+r.m+r.r)/4;return r}
+
+function go(f){ui.conf=false;render(true);if(f)f()}
+function render(anim){clearInterval(tm);const u=U(),a=$('#app');a.classList.remove('fade');if(anim){void a.offsetWidth;a.classList.add('fade')}
+ const wait=u&&u.sub&&Date.now()-u.sub<864e5;
+ a.innerHTML=!ready?'<div class="text-center p-16"><div class="text-4xl">🎓</div><p class="mut mt-3">Conectando ao banco de dados…</p></div>':!u?authV():!u.sub?examV():wait?waitV():repV();
+ if(wait){tick();tm=setInterval(tick,1000)}
+ if(u&&!u.sub&&ui.sec==='r'){last=u.essay;cnt()}}
+const hdr=u=>`<header class="flex items-center justify-between gap-2 p-4 max-w-4xl mx-auto noprint"><b class="gold text-lg">🎓 Simulado ENEM</b><span class="flex items-center gap-2"><span class="mut text-sm hidden sm:inline">${esc(u.name)}</span><button class="btn2" onclick="logout()">Sair</button></span></header>`;
+
+function authV(){const r=ui.mode==='up';
+ return `<main class="max-w-md mx-auto p-5 pt-10"><div class="text-center mb-6"><div class="text-5xl">🎓</div><h1 class="text-3xl font-extrabold gold">Simulado ENEM</h1><p class="mut">3 áreas objetivas + Redação · nota liberada em 24h</p></div>
+<form class="glass p-6 space-y-3" onsubmit="return auth(event)"><div class="flex gap-2"><button type="button" class="tab flex-1 ${r?'':'on'}" onclick="ui.mode='in';render(true)">Entrar</button><button type="button" class="tab flex-1 ${r?'on':''}" onclick="ui.mode='up';render(true)">Criar conta</button></div>
+${r?'<input id="nm" class="inp" placeholder="Nome do aluno" required>':''}<input id="em" type="email" class="inp" placeholder="E-mail" required><input id="pw" type="password" class="inp" placeholder="Senha (mín. 4 caracteres)" minlength="4" required>
+<p id="msg" class="text-sm text-red-400"></p><button class="btn w-full">${r?'Criar conta':'Entrar'}</button><p class="mut text-xs text-center">${DB?'Dados salvos no banco de dados.':'⚠️ Banco de dados indisponível: nada será salvo. Abra o link logado no Claude.'}</p></form></main>`}
+function auth(e){e.preventDefault();const em=$('#em').value.trim().toLowerCase(),pw=btoa(unescape(encodeURIComponent($('#pw').value))),msg=$('#msg');
+ if(ui.mode==='up'){if(users[em]){msg.textContent='E-mail já cadastrado.';return false}
+  users[em]={name:$('#nm').value.trim(),pw,insc:'26'+String(Math.random()).slice(2,12),cpf:cpf(),ans:blank(),essay:'',sub:null};save()}
+ else if(!users[em]||users[em].pw!==pw){msg.textContent='E-mail ou senha incorretos.';return false}
+ ses=em;sync();ui.sec='h';ui.q=0;render(true);return false}
+function logout(){ses=null;sync();ui.mode='in';render(true)}
+
+function examV(){const u=U(),k=ui.sec,tot=SEC.reduce((a,s)=>a+u.ans[s.k].filter(v=>v!=null).length,0);
+ const tabs=SEC.map(s=>`<button class="tab ${k===s.k?'on':''}" onclick="ui.sec='${s.k}';ui.q=0;render(true)">${s.s} <span class="mut">${u.ans[s.k].filter(v=>v!=null).length}/20</span></button>`).join('')+`<button class="tab ${k==='r'?'on':''}" onclick="ui.sec='r';render(true)">Redação ${u.essay.trim()?'✓':''}</button>`;
+ let body;
+ if(k==='r')body=`<div class="glass p-5 space-y-3"><h2 class="text-xl font-bold gold">Redação</h2><p class="font-semibold">Tema: ${THEME}</p><p class="mut text-sm">${SUP}</p>
+<textarea id="es" rows="15" class="inp" style="line-height:1.6" placeholder="Escreva seu texto dissertativo-argumentativo (máx. 15 linhas)..." oninput="ess(this)">${esc(u.essay)}</textarea>
+<div class="flex justify-between text-sm"><span id="lc"></span><span id="wc" class="mut"></span></div><p class="mut text-xs">Considera-se cerca de 88 caracteres por linha. O texto é bloqueado ao atingir 15 linhas.</p></div>`;
+ else{const s=SEC.find(x=>x.k===k),i=ui.q,x=s.q[i],sel=u.ans[k][i];
+  body=`<div class="glass p-5"><div class="flex justify-between mb-3"><b class="gold">${s.n}</b><span class="mut text-sm">Questão ${i+1}/20 · 50 pts</span></div>
+<div class="flex flex-wrap gap-2 mb-5">${s.q.map((_,j)=>`<button class="nb ${u.ans[k][j]!=null?'done':''} ${j===i?'cur':''}" onclick="ui.q=${j};render(false)">${j+1}</button>`).join('')}</div>
+<p class="text-lg font-semibold mb-4">${i+1}. ${x.t}</p><div class="space-y-2">${x.o.map((o,j)=>`<button class="opt ${sel===j?'sel':''}" onclick="ans(${j})"><b>${L[j]})</b><span>${o}</span></button>`).join('')}</div>
+<div class="flex justify-between mt-5"><button class="btn2" ${i?'':'disabled style="opacity:.4"'} onclick="ui.q--;render(false)">← Anterior</button><button class="btn2" ${i<19?'':'disabled style="opacity:.4"'} onclick="ui.q++;render(false)">Próxima →</button></div></div>`}
+ const miss=SEC.map(s=>20-u.ans[s.k].filter(v=>v!=null).length),conf=ui.conf?`<div class="glass p-5 mt-4"><p class="font-semibold">Enviar o simulado?</p><p class="mut text-sm my-2">Sem resposta: Humanas ${miss[0]}, Natureza ${miss[1]}, Matemática ${miss[2]}. Redação: ${u.essay.trim()?'preenchida':'em branco'}. Após o envio não será possível alterar.</p><button class="btn" onclick="send()">Confirmar envio</button> <button class="btn2" onclick="ui.conf=false;render(false)">Voltar</button></div>`:'';
+ return hdr(u)+`<main class="max-w-4xl mx-auto p-4 pb-10"><div class="glass p-3 mb-4"><div class="flex flex-wrap gap-2">${tabs}</div><div class="h-2 rounded bg-white/10 mt-3 overflow-hidden"><div class="h-2" style="width:${tot/60*100}%;background:linear-gradient(90deg,#3b82f6,#fbbf24);transition:.4s"></div></div><p class="mut text-xs mt-1">${tot}/60 questões respondidas</p></div>${body}<div class="text-center mt-5"><button class="btn" onclick="ui.conf=true;render(false)">Finalizar e enviar simulado</button></div>${conf}</main>`}
+function ans(j){const u=U();u.ans[ui.sec][ui.q]=j;save();render(false)}
+function ess(el){let v=el.value;if(lc(v)>15){v=last;el.value=v}last=v;U().essay=v;save();cnt()}
+function cnt(){const e=$('#es');if(!e)return;const l=lc(e.value);$('#lc').innerHTML=`Linhas: <b class="${l>=15?'text-red-400':'gold'}">${l}/15</b>`;$('#wc').textContent=wc(e.value)+' palavras'}
+function send(){U().sub=Date.now();save();render(true)}
+
+function waitV(){const u=U();return hdr(u)+`<main class="max-w-xl mx-auto p-5 text-center"><div class="glass p-8"><div class="text-5xl mb-2">📨</div><h2 class="text-2xl font-bold gold">Simulado enviado!</h2><p class="mut my-2">Enviado em ${new Date(u.sub).toLocaleString('pt-BR')}. Seu boletim será liberado em:</p><div id="cd" class="text-5xl font-extrabold my-5" style="text-shadow:0 0 22px rgba(251,191,36,.6)">24:00:00</div><p class="mut text-sm mb-5">Volte quando o cronômetro zerar para ver suas notas.</p><button class="btn2" onclick="dev()">[DEV] Acelerar Tempo / Liberar Nota Agora</button></div></main>`}
+function tick(){const u=U(),left=864e5-(Date.now()-u.sub);if(left<=0){render(true);return}const s=Math.floor(left/1e3),p=n=>String(n).padStart(2,'0'),e=$('#cd');if(e)e.textContent=`${p(s/3600|0)}:${p(s%3600/60|0)}:${p(s%60)}`}
+function dev(){U().sub=Date.now()-864e5;save();render(true)}
+function again(){const u=U();u.ans=blank();u.essay='';u.sub=null;save();ui.sec='h';ui.q=0;render(true)}
+
+function histV(u){const h=(u.hist||[]).slice().reverse(),b=Math.max(...h.map(x=>x.avg));return `<div class="glass p-4 mt-4"><div class="flex justify-between flex-wrap gap-1"><b class="gold">📈 Histórico de notas (salvo)</b><span class="mut text-sm">${h.length} simulado(s) · melhor média ${fmt(b)}</span></div><div style="overflow-x:auto"><table class="w-full mt-2 text-sm"><tr class="mut"><th>Data</th><th>Hum.</th><th>Nat.</th><th>Mat.</th><th>Red.</th><th>Média</th></tr>${h.map(x=>`<tr><td>${new Date(x.t).toLocaleDateString('pt-BR')}</td><td>${fmt(x.h)}</td><td>${fmt(x.n)}</td><td>${fmt(x.m)}</td><td>${fmt(x.r)}</td><td><b class="${x.avg===b?'gold':''}">${fmt(x.avg)}</b></td></tr>`).join('')}</table></div></div>`}
+function repV(){const u=U(),r=calc(u);if(!(u.hist||[]).some(x=>x.t===u.sub)){(u.hist=u.hist||[]).push({t:u.sub,h:r.h,n:r.n,m:r.m,r:r.r,avg:r.avg});save()}const CN=['Pontuação','Coesão e coerência','Tema e repertório','Estrutura dissertativa','Proposta de intervenção'];
+ const row=(n,v)=>`<tr><td>${n}</td><td><b>${fmt(v)}</b> / 1000</td></tr>`;
+ const gab=SEC.map(s=>`<div class="glass p-4 mt-4"><div class="flex justify-between"><b class="gold">${s.n}</b><span class="mut text-sm">${r[s.k+'ok']} certas · ${20-r[s.k+'ok']} erradas/em branco</span></div><div class="grid grid-cols-5 sm:grid-cols-10 gap-2 mt-3">${s.q.map((x,i)=>{const a=u.ans[s.k][i];return`<div class="gc ${a==null?'bl':a===x.c?'ok':'no'}"><b>${i+1}</b><br>${a==null?'–':L[a]}/${L[x.c]}</div>`}).join('')}</div><p class="mut text-xs mt-2">Formato: sua resposta / gabarito</p></div>`).join('');
+ return hdr(u)+`<main class="max-w-4xl mx-auto p-4 pb-10"><div class="glass p-6"><div class="text-center"><h2 class="text-2xl font-extrabold gold">BOLETIM DE DESEMPENHO — ENEM SIMULADO</h2></div>
+<div class="grid sm:grid-cols-3 gap-2 my-4 text-sm"><div><span class="mut">Candidato</span><br><b>${esc(u.name)}</b></div><div><span class="mut">CPF (fictício)</span><br><b>${u.cpf}</b></div><div><span class="mut">Inscrição</span><br><b>${u.insc}</b></div></div>
+<table class="w-full">${row('Ciências Humanas',r.h)}${row('Ciências da Natureza',r.n)}${row('Matemática',r.m)}${row('Redação',r.r)}<tr><td><b class="gold">Média Geral do ENEM</b></td><td><b class="gold text-xl">${fmt(r.avg)}</b></td></tr></table></div>
+<div class="glass p-4 mt-4"><b class="gold">Redação — competências</b><table class="w-full mt-2">${CN.map((n,i)=>`<tr><td>C${i+1}. ${n}</td><td>${fmt(r.e[i])} / 200,0</td><td class="mut">${r.e[i]>=160?'Excelente':r.e[i]>=100?'Bom':'Precisa melhorar'}</td></tr>`).join('')}</table><p class="mut text-xs mt-2">Correção automática por análise de pontuação, conectivos, tema/repertório, estrutura e proposta de intervenção.</p></div>${gab}${histV(u)}
+<div class="flex gap-2 justify-center mt-6 noprint"><button class="btn" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button><button class="btn2" onclick="again()">Novo simulado</button></div></main>`}
+render(true);initDb();
+</script>
+</body>
+</html>
